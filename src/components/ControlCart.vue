@@ -1,7 +1,15 @@
 <template>
   <div class="border border-primary rounded p-3">
     <div class="row ">
-      <div class="col-8"></div>
+      <div class="col-8 align-items-center">
+        <p class="small text-black-50 mb-0">
+          Unit Price : $ {{productDetail.price}}
+        </p>
+        <p class="mb-3">{{productDetail.category}}</p>
+        <p class="">
+          Total Cost: ${{calcCost}}
+        </p>
+      </div>
       <div class="col-4">
         <div class="row mb-3 g-2">
           <div class="col-3">
@@ -35,6 +43,12 @@ export default {
       quantity: 1
     }
   },
+  computed: {
+    calcCost() {
+      let cost=this.productDetail.price * this.quantity;
+      return cost.toFixed(2)
+    }
+  },
   methods: {
     plus() {
       this.quantity++
@@ -46,7 +60,10 @@ export default {
     }
 
   },
-  components: {AddToCartButton}
+  components: {AddToCartButton},
+  props: {
+    productDetail: Object
+  },
 }
 </script>
 

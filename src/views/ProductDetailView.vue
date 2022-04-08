@@ -17,8 +17,12 @@
         </div>
       </div>
       <div class="col-8 my-5">
-        <ControlCart></ControlCart>
+        <ControlCart :product-detail="productDetail"></ControlCart>
       </div>
+    </div>
+    <div class="row">
+      <Product v-for="product in relatedProducts" :key="product.id" :product-detail="product"></Product>
+
     </div>
   </div>
 </template>
@@ -26,20 +30,29 @@
 <script>
 import Rating from "@/components/Rating";
 import ControlCart from "@/components/ControlCart";
+import Product from "@/components/Product";
 export default {
   name:"ProductDetailView",
-  components: {ControlCart, Rating},
+  components: {Product, ControlCart, Rating},
   data() {
     return {
-      productDetail: null
+      productDetail: null,
+      relatedProducts :[]
     }
   },
   mounted() {
-    fetch('https://fakestoreapi.com/products/'+this.$route.params.id)
+    let currentId=this.$route.params.id
+    fetch('https://fakestoreapi.com/products/'+currentId)
         .then(res=>res.json())
         .then(json=> {
           console.log(json)
           this.productDetail = json
+
+          fetch('https://fakestoreapi.com/products/category/'+json.category)
+          .then(res=>res.json())
+          .then(json=>{
+            this.relatedProducts=json.filter((el,index)=>el.id !=currentId).filter((el,index)=>index<4)
+          })
         })
   }
 }
