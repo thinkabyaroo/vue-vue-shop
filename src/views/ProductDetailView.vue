@@ -16,15 +16,19 @@
           </div>
         </div>
       </div>
+      <div class="col-8 my-5">
+        <ControlCart></ControlCart>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import Rating from "@/components/Rating";
+import ControlCart from "@/components/ControlCart";
 export default {
   name:"ProductDetailView",
-  components: {Rating},
+  components: {ControlCart, Rating},
   data() {
     return {
       productDetail: null
