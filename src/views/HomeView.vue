@@ -8,15 +8,18 @@
 
 <script>
 import Product from "@/components/Product";
+import {mapState} from "vuex";
 export default {
   components: {Product},
   data() {
     return {
-      products : [],
+      //products : [],
     }
   },
   computed: {
-
+    ...mapState({
+      products:state=>state.products
+    })
   },
   methods: {
 
@@ -25,12 +28,12 @@ export default {
     console.log("created")
   },
   mounted() {
-    fetch('https://fakestoreapi.com/products/')
-        .then(res=>res.json())
-        .then(json=> {
-          console.log(json)
-          this.products = json
-        })
+    // fetch('https://fakestoreapi.com/products/')
+    //     .then(res=>res.json())
+    //     .then(json=> {
+    //       console.log(json)
+    //       this.products = json
+    //     })
     // console.log("mounted")
   }
 }

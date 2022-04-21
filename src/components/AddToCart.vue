@@ -14,11 +14,27 @@ export default {
       isAdded: false
     }
   },
+  props: {
+    productDetail: {
+      type: Object,
+      default: 0
+    },
+  },
   methods: {
     add() {
       this.isAdded=true
+      this.$store.commit("addCart",{
+        ...this.productDetail,
+        quantity:1,
+        cost:this.productDetail.price
+      })
     }
   },
+  mounted() {
+    if (this.$store.state.cart.find(c=>c.id === this.productDetail.id)){
+      this.isAdded=true
+    }
+  }
 }
 </script>
 

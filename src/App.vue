@@ -8,7 +8,21 @@
 <script>
 import Nav from "@/components/Nav";
 export default {
-  components: {Nav}
+  components: {Nav},
+  created() {
+    if (localStorage.getItem("products")){
+      let json = JSON.parse(localStorage.getItem("products"))
+      this.$store.commit('productsFromApi',json)
+    }else {
+      fetch('https://fakestoreapi.com/products/')
+          .then(res=>res.json())
+          .then(json=> {
+            console.log(json)
+            localStorage.setItem("products",JSON.stringify(json))
+            this.$store.commit('productsFromApi',json)
+          })
+    }
+  }
 }
 </script>
 

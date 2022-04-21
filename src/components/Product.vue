@@ -7,14 +7,14 @@
             <figure>
               <img :src="productDetail.image" class="product-img" alt="">
             </figure>
-            <p>{{ productDetail.title }}</p>
+            <p class="fw-light">{{ productDetail.title }}</p>
           </div>
           <div class="">
             <div class="d-flex justify-content-between">
               <p>$ {{ productDetail.price }}</p>
               <Rating :rating="productDetail.rating"></Rating>
             </div>
-            <AddToCartButton > </AddToCartButton>
+            <AddToCartButton :product-detail="productDetail" > </AddToCartButton>
           </div>
         </div>
       </div>
@@ -35,6 +35,7 @@ export default {
   },
   methods: {
     toDetail(productId) {
+      console.log('to detail'+productId)
       this.$router.push({name:"productDetail",params:{id:productId}})
     }
   },

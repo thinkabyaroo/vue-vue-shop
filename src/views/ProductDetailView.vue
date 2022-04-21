@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div class="container" v-if="productDetail">
     <div class="row justify-content-center">
       <div class="col-lg-3 ">

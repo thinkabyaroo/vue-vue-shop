@@ -27,7 +27,7 @@
           </div>
 
         </div>
-        <AddToCartButton></AddToCartButton>
+        <AddToCartButton :product-detail="productDetail"></AddToCartButton>
       </div>
     </div>
 
@@ -40,7 +40,7 @@ export default {
   name:"ControlCart",
   data() {
     return {
-      quantity: 1
+      quantity: this.productDetail.quantity
     }
   },
   computed: {
@@ -51,11 +51,15 @@ export default {
   },
   methods: {
     plus() {
-      this.quantity++
+      this.productDetail.quantity = ++this.quantity
+      this.productDetail.cost=this.calcCost
+      this.$store.commit("cartQuantityChange",this.productDetail)
     },
     minus(){
-      if(this.quantity>1){
-        this.quantity--
+      if(this.productDetail.quantity>1){
+        this.productDetail.quantity = --this.quantity
+        this.productDetail.cost = this.calcCost
+        this.$store.commit('cartQuantityChange',this.productDetail)
       }
     }
 
